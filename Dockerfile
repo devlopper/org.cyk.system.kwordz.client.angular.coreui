@@ -6,7 +6,7 @@ FROM node:latest AS build-stage
 #FROM tiangolo/node-frontend:10 as build-stage
 
 # Node process tuning
-ENV NODE_OPTIONS="--max-old-space-size=4096"
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 
 # Set the working directory
 WORKDIR /app
@@ -23,7 +23,7 @@ COPY ./ /app/
 # Generate the build of the application
 ARG configuration=production
 RUN npm config set legacy-peer-deps true
-RUN npm run build -- --output-path=./dist/out --configuration $configuration
+RUN npm run build -- --output-path=./dist/out --configuration $configuration --force
 
 #################### Stage 2: Serve app with nginx server
 
