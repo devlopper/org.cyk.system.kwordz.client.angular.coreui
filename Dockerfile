@@ -15,15 +15,15 @@ WORKDIR /app
 COPY package*.json /app/
 
 # Install all the dependencies
-RUN npm install
+RUN npm config set legacy-peer-deps true
+RUN npm install --force
 
 #Copy source code
 COPY ./ /app/
 
 # Generate the build of the application
 ARG configuration=production
-RUN npm config set legacy-peer-deps true
-RUN npm run build -- --output-path=./dist/out --configuration $configuration --force
+RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
 #################### Stage 2: Serve app with nginx server
 
