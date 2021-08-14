@@ -22,6 +22,7 @@ COPY ./ /app/
 
 # Generate the build of the application
 ARG configuration=production
+RUN npm config set legacy-peer-deps true
 RUN npm run build -- --output-path=./dist/out --configuration $configuration
 
 #################### Stage 2: Serve app with nginx server
