@@ -23,7 +23,8 @@ COPY ./ /app/
 
 # Generate the build of the application
 ARG configuration=production
-RUN npm run build -- --output-path=./dist/out --configuration $configuration
+#RUN npm run build -- --output-path=./dist/out --configuration $configuration
+RUN node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng build --output-path=./dist/out --verbose
 
 #################### Stage 2: Serve app with nginx server
 
